@@ -1,0 +1,47 @@
+<html>
+<body>
+<canvas id="myCanvas" onclick="vra()" width="500" height="400">
+</canvas>
+<script>
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.fillStyle = "black";
+    var x1, y1, x2, y2;
+    var iData = 0;
+    function vra() {
+        if (iData == 0) {
+            x1 = event.clientX;
+            y1 = event.clientY;
+            iData = 1;
+        }
+        else {
+            x2 = event.clientX;
+            y2 = event.clientY;
+            console.log("x1:" + x1 + "y1:" + y1);
+            console.log("x2:" + x2 + "y2:" + y2);
+            ris(x1, y1, x2, y2);
+            iData = 0;
+        }
+    }
+    function ris(x1, y1, x2, y2) {
+        if (x1 == x2 && y1 == y2) {
+            ctx.fillRect(x1, y1, 1, 1);
+            return;
+        }
+        var dx = x2 - x1;
+        var dy = y2 - y1;
+        var d = Math.max(Math.abs(dx), Math.abs(dy));
+        var x3 = dx / d;
+        var y3 = dy / d;
+        console.log("x3:" + x3 + " y3:" + y3);
+        var x = x1,
+            y = y1;
+        for (var v = 0; v < Math.round(d); v++) {
+            ctx.fillRect(x, y, 1, 1);
+            x = x + x3;
+            y = y + y3;
+        }
+    }
+</script>
+</body>
+</html>
